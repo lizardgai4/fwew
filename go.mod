@@ -3,17 +3,18 @@ module fwew
 go 1.20
 
 require (
-	github.com/c-bata/go-prompt v0.2.3
-	github.com/fwew/fwew-lib/v5 v5.7.1-dev.0.20230704190850-db70d4bd3a5e
+	github.com/c-bata/go-prompt v0.2.6
+	github.com/fwew/fwew-lib/v5 v5.11.3
 )
 
 require (
-	github.com/mattn/go-colorable v0.1.4 // indirect
-	github.com/mattn/go-isatty v0.0.10 // indirect
-	github.com/mattn/go-runewidth v0.0.9 // indirect
-	github.com/mattn/go-tty v0.0.3 // indirect
-	github.com/pkg/term v0.0.0-20200520122047-c3ffed290a03 // indirect
-	golang.org/x/sys v0.0.0-20191120155948-bd437916bb0e // indirect
+	github.com/mattn/go-colorable v0.1.13 // indirect
+	github.com/mattn/go-isatty v0.0.20 // indirect
+	github.com/mattn/go-runewidth v0.0.15 // indirect
+	github.com/mattn/go-tty v0.0.5 // indirect
+	github.com/pkg/term v1.2.0-beta.2 // indirect
+	github.com/rivo/uniseg v0.4.7 // indirect
+	golang.org/x/sys v0.18.0 // indirect
 )
 
 //for testing on a local machine's fwew-lib

@@ -150,13 +150,21 @@ func printHelp() {
 }
 
 func output(words [][]fwew.Word) {
+	fileMode := len(*filename) > 0
 	for _, wordbundle := range words {
 		for j, word := range wordbundle {
-			entry, err := word.ToOutputLine(j, *markdown, *showIPA, *showInfixes, *showDashed, *showInfDots, *showSource, *language)
-			if err != nil {
-				panic(err)
+			if word.ID == "" && !fileMode {
+				continue
 			}
-			fmt.Println(entry)
+			if word.ID == "" && fileMode {
+				fmt.Printf("cmd %s\n", word.Navi)
+			} else {
+				entry, err := word.ToOutputLine(fmt.Sprint(j), *markdown, *showIPA, *showInfixes, *showDashed, *showInfDots, *showSource, *language)
+				if err != nil {
+					panic(err)
+				}
+				fmt.Println(entry)
+			}
 		}
 	}
 	if len(words) == 0 {
@@ -204,7 +212,7 @@ func slashCommand(s string, argsMode bool) {
 		setArg += strings.Join(args, space)
 		setFlags(setArg, argsMode)
 	case "/list":
-		words, err := fwew.List(args)
+		words, err := fwew.List(args, 1)
 		if err != nil {
 			panic(err)
 		}
@@ -222,7 +230,7 @@ func slashCommand(s string, argsMode bool) {
 				} else {
 					args = []string{}
 				}
-				words, err = fwew.Random(k, args)
+				words, err = fwew.Random(k, args, 1)
 				if err != nil {
 					panic(err)
 				}
@@ -327,9 +335,6 @@ func main() {
 		for scanner.Scan() {
 			line := scanner.Text()
 			if !strings.HasPrefix(line, "#") && line != "" {
-				if !*markdown {
-					fmt.Printf("cmd %s\n", line)
-				}
 				executor(line)
 			}
 		}
